@@ -1,33 +1,21 @@
-onst baseUrl = `http://localhost:3000/api`
+const baseUrl = `http://localhost:3000/api/v1`
 
 export default class BoardsAdapter {
   static allBoards(){
-    return fetch(`${this.url()}`)
-    .then( response => response.json() )
-  }
-
-  static show(id){
-    return fetch(`${this.url()}/${id}`)
-    .then( response => response.json() )
-  }
-
-  static allIng(){
-    return fetch(`${baseUrl}/metatags`)
-
+    return fetch(`${this.url()}`, {
+      headers: headers()
+    })
     .then( response => response.json() )
   }
 
   static url(){
-    return `${baseUrl}/boards`
+    return `${baseUrl}/allideaboards`
   }
 
   static create(board){
     return fetch(`${this.url()}`,
     {method: 'POST',
-    headers: {
-        'content-type': 'application/json',
-        'accept': 'application/json'
-      },
+    headers: headers(),
     body: JSON.stringify({
       board: {title: board.title, description: board.description}
       })
@@ -38,10 +26,7 @@ export default class BoardsAdapter {
   static update(board){
    return fetch(`${this.url()}/${board.id}`, {
     method: 'PATCH',
-    headers: {
-      'content-type': 'application/json',
-      'accept': 'application/json'
-    },
+    headers: headers(),
     body: JSON.stringify({
       board: {title: board.title, description: board.description}
     })
@@ -51,10 +36,7 @@ export default class BoardsAdapter {
 static destroy(id){
   return fetch(`${this.url()}/${id}`, {
     method: 'DELETE',
-    headers: {
-      'content-type': 'application/json',
-      'accept': 'application/json'
-    },
+    headers: headers(),
   })
 }
 
