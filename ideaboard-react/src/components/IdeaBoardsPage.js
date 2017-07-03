@@ -41,27 +41,27 @@ export default class IdeaBoardsPage extends Component {
     )
   }
 
-  deleteBoard(id){
-    BoardsAdapter.destroy(id)
-    .then( () => {
-      this.setState( previousState => {
-        return {
-          boards: previousState.boards.filter( board => board.id !== id)
-        }
-      })
-    })
-  }
-
-  deleteSticky(id){
-    BoardsAdapter.destroy(id)
-    .then( () => {
-      this.setState( previousState => {
-        return {
-          baords: previousState.board.filter( board => board.id !== id)
-        }
-      })
-    })
-  }
+  // deleteBoard(id){
+  //   BoardsAdapter.destroy(id)
+  //   .then( () => {
+  //     this.setState( previousState => {
+  //       return {
+  //         boards: previousState.boards.filter( board => board.id !== id)
+  //       }
+  //     })
+  //   })
+  // }
+  //
+  // deleteSticky(id){
+  //   BoardsAdapter.destroy(id)
+  //   .then( () => {
+  //     this.setState( previousState => {
+  //       return {
+  //         baords: previousState.board.filter( board => board.id !== id)
+  //       }
+  //     })
+  //   })
+  // }
 
 
   render(){

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BoardsAdapter} from '../adapters';
 import IdeaBoardPage from '../components/IdeaBoardPage';
-// import IdeaBoardDetail from '../components/IdeaBoardDetail'
+import IdeaBoardDetail from '../components/IdeaBoardDetail'
 
 // import withAuth from '..hocs/withAuth';
 
