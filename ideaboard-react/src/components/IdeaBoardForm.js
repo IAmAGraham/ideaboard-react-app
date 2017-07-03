@@ -32,6 +32,7 @@ export default class IdeaBoardForm extends Component {
     console.log("Dis is dat idea form")
     return (
       <div>
+      <IdeaBoardStickyForm onStop={this.handleStop} />
       <form onSubmit={this.handleSubmit}>
       <input type='text' placeholder='Title of Project' name="title" value={this.state.title} onChange={this.handleChange}/>
       <input type='text' placeholder='Description of Project' name="description" value={this.state.description} onChange={this.handleChange}/>

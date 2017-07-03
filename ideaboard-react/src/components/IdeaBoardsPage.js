@@ -1,19 +1,44 @@
 import React, {Component} from 'react';
 import {Route, Switch} from 'react-router-dom';
-// import BoardsAdapter from '../adapters';
+import {bindActionCreators} from 'redux';
+import {connect} from 'react-redux';
+import {IdeaBoardReactApp} from '.constants.js'
+import {push} from "react-router-redux";
+import {changeBoardAttributes, publish, addBoardItem, updateItem, createBoard, deleteItem, updateBoard, updateTitle, updateDescription, deleteBoard, setCurrentBoard, newBoard} from '../actions';
 
+import Collaborator from './Collaborator';
 import IdeaBoardForm from './IdeaBoardForm';
 import IdeaBoardsList from './IdeaBoardsList';
 import IdeaBoardDetail from './IdeaBoardDetail';
+import IdeaBoardSticky from './IdeaBoardSticky';
 
 
-export default class IdeaBoardsPage extends Component {
+class IdeaBoardsPage extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      boards: []
+      title: '',
+      decrioption: ''
     }
     this.createBoard = this.createBoard.bind(this)
+    this.addSticky = this.addSticky.bind(this)
+  }
+
+  componentWillMount(){
+    let {board_id} = this.props.match.params
+    if (board_id){
+      this.props.setCurrentBoard(this.props.token, board_id)
+    }
+  }
+
+  componentWillReceiveProps(nextProps){
+    let {board_id} = nextProps.match.params
+    if (nextProps.token){
+
+      if (nextProps.board_id){
+
+      }
+    }
   }
 
   componentDidMount(){
@@ -61,6 +86,17 @@ export default class IdeaBoardsPage extends Component {
         }
       })
     })
+  }
+
+  addSticky(event){
+    if(event.target.className === 'board-container'){
+      this.props.addBoardItem({
+        x: event.clientX,
+        y: event.clientY,
+        content: '',
+        IID: this.props.boardItems.length
+      })
+    }
   }
 
 
