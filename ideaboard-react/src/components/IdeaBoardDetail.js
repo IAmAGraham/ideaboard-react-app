@@ -17,9 +17,7 @@ export default class IdeaBoardDetail extends Component {
       <h2>{this.props.board.title}</h2>
       <IdeaBoardItem onSubmit={this.createSticky}/>
       </div>
-      <div>
 
-      </div>
     )
 
   }
