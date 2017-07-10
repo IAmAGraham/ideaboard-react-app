@@ -1,154 +1,153 @@
-import React, {Component} from 'react';
-import ReactDOM from 'react-dom';
-import Draggable from 'react-draggable';
-
-import '../postitnote.css'
-
-export default class IdeaBoardItem extends Component{
-
-    constructor(props){
-      super(props);
-
-      this.handleTextChange = this.handleTextChange.bind(this);
-      this.handleSave = this.handleSave.bind(this);
-      this.handleSubmit = this.handleSubmit.bind(this);
-      this.renderForm = this.renderForm.bind(this);
-      this.renderStickyInput = this.renderStickyInput.bind(this);
-      this.renderDisplay = this.renderDisplay.bind(this);
-      this.renderStickyInput = this.renderStickyInput.bind(this);
-      this.save = this.save.bind(this);
-      this.state = {
-        boards: [],
-        editing: false,
-        stickies: [{id: 1, content:'', x:'', y:''}]
-      }
-    }
-
-    edit = () =>{
-      this.setState({editing: true})
-    }
-
-    componentWillMount(){
-      this.style = {
-        right: this.randomBetween(0, window.innerWidth - 150, 'px'),
-        top: this.randomBetween(0, window.innerHeight - 150, 'px')
-      }
-    }
-
-    componentDidUpdate(){
-      if (this.state.editing) {
-        // debugger
-        this.refs.newText
-
-      }
-    }
-
-    shouldComponentUpdate(nextProps, nextState){
-      return this.props.value !== nextProps.value || this.state !== nextState.value
-    }
-
-    save(event){
-      event.preventDefault()
-      const content = `${this.state.stickies[0].content}`
-
-      this.props.onSave(content)
-      this.setState({
-        content: ''
-      })
-    }
-
-
-    handleSave(event){
-      event.preventDefault()
-      // debugger
-      if(this.state.content !== ""){
-        this.props.on
-      }
-    }
-
-    randomBetween(x,y,s){
-      return (x + Math.ceil(Math.random()*(y-x))) +s
-    }
-
-    remove = () =>{
-      this.props.onRemove(this.props.id)
-    }
-
-    handleSubmit(event){
-      event.preventDefault()
-      // debugger
-      const content = `${this.state.stickies[0].content}`
-      this.props.onSave(content)
-      this.setState({
-        content: ''
-      })
-    }
-
-    handleTextChange(id, content){
-      this.setState((previousState) => {
-        return {
-          stickies: previousState.stickies.map((stick) => {
-            if (stick.id !== id) {
-              return stick
-            } else {
-              return {id: id, content: content}
-            }
-          })
-        }
-      })
-    }
-
-
-    renderForm(){
-      return (
-      <div className="container bootstrap snippet">
-        <div className="row">
-          <ul className="notes">
-          <li>
-            <div className="rotate-1 lazur-bg">
-            {this.renderStickyInput()}
-            </div>
-          </li>
-          </ul>
-        </div>
-      </div>
-    )}
-
-    renderStickyInput(){
-      return this.state.stickies.map( stick => (
-        <form onSubmit={this.handleSubmit}>
-        <div>
-          <textarea key={stick.id} type='text' id={stick.id} placeholder="Add Sticky Stuff" defaultValue={stick.content} onChange={(event) => this.handleTextChange(stick.id, event.target.value)} />
-          <button onClick={this.save}>Save</button>
-        </div>
-        </form>
-      ))
-    }
-
-    renderDisplay(){
-      return(
-      <div className="container bootstrap snippet" style={this.style}>
-        <div className="row">
-          <ul className="notes">
-          <li>
-            <div className="rotate-1 lazur-bg">
-              <button onClick={this.remove}>X</button>
-              <button onClick={this.edit}>Edit</button>
-            </div>
-            </li>
-          </ul>
-        </div>
-      </div>
-    )}
-
-
-    render(){
-      return(
-        <div>
-        <Draggable>
-          {(this.state.editing) ? this.renderForm() : this.renderDisplay()}
-        </Draggable>
-        </div>
-      )
-    }
-}
+// import React, {Component} from 'react';
+// import ReactDOM from 'react-dom';
+// import Draggable from 'react-draggable';
+//
+//
+// import '../postitnote.css'
+//
+// export default class IdeaBoardItem extends Component{
+//
+//     constructor(props){
+//       super(props);
+//
+//       this.handleStickyChange = this.handleStickyChange.bind(this);
+//       this.handleTextChange = this.handleTextChange.bind(this);
+//       // this.handleSave = this.handleSave.bind(this);
+//       // this.handleSubmit = this.handleSubmit.bind(this);
+//       this.renderTextInput = this.renderTextInput.bind(this);
+//       this.renderForm = this.renderForm.bind(this);
+//       // this.renderStickyInput = this.renderStickyInput.bind(this);
+//       this.renderDisplay = this.renderDisplay.bind(this);
+//       this.removeSticky = this.removeSticky.bind(this);
+//       this.editSticky = this.editSticky.bind(this);
+//       // this.save = this.save.bind(this);
+//       this.state = {
+//
+//         editing: false,
+//         activeSticky:{}
+//       }
+//     }
+//
+//     handleStickyChange(event){
+//       console.log(event.target.value)
+//       debugger
+//       this.setState({
+//         activeSticky: Object.assign({}, {content: event.target.value, id:1})
+//       })
+//     }
+//
+//     handleTextChange(id, content){
+//
+//       this.setState( (previousState) => {
+//         return {
+//           stickies: previousState.stickies.map( (stick) =>{
+//             if (stick.id !== parseInt(id)){
+//               return stick
+//             } else {
+//               return {
+//                 id: id,
+//                 content: content
+//               }
+//             }
+//           })
+//         }
+//       }, console.log(this.state.stickies))
+//     }
+//
+//     componentWillReceiveProps(nextProps){
+//       if (nextProps !== this.props) {
+//         const content = nextProps.stickies.content
+//         this.setState({
+//           content: content
+//         })
+//       }
+//     }
+//
+//     // handleSubmit(event){
+//     //   event.preventDefault();
+//     //   console.log("here!")
+//     //   debugger
+//     //     this.setState({activeSticky: Object.assign({}, {content: event.target.value})
+//     //
+//     //     this.state.stickies.map( x => {
+//     //       if (x.id === this.state.activeSticky.id){
+//     //         return Object.assign({}, {content: this.state.activeSticky.content}
+//     //         )} else {
+//     //           return x
+//     //         }
+//     //       })
+//     //
+//     //
+//     // }
+//
+//     stickySubmit(id, content){
+//       debugger
+//     }
+//
+//     // handleSubmit(event){
+//     //   event.preventDefault()
+//     //   const content = `${this.state.stickies[0].content}`
+//     //   if(this.state.stickies[0] !== ""){
+//     //     this.props.onSubmit(content)
+//     //   } else {
+//     //     alert('Please enter content for this sticky')
+//     //   }
+//     //
+//       // debugger
+//     //
+//
+//
+//
+//
+//     renderTextInput(){
+//       this.setState(function(previousState){
+//         return { stickies: [...previousState.stickies, {id: previousState.stickies.length+1, content:''}]}
+//       })
+//     }
+//
+    // removeSticky = () =>{
+    //   this.props.onRemove(this.props.id)
+    // }
+//
+//     editSticky = () =>{
+//       this.setState({editing: true})
+//     }
+//
+//     renderForm(){
+//       return (
+//       <div>
+//         <form onSubmit={this.handleSubmit}>
+//         <input type='text' placeholder='Add Sticky Content Here' name='content' value={this.state.content} onChange={this.handleStickyChange} />
+//         <input type='submit' value={this.props.submitText} />
+//         </form>
+//       </div>
+//     )}
+//
+//
+//     renderDisplay(){
+//       return(
+//       <div>
+//         <button onClick={this.removeSticky}>X</button>
+//         <button onClick={this.editSticky}>Edit</button>
+//
+//       </div>
+//     )}
+//
+//     render(){
+//       return(
+//         <div className="container bootstrap snippet">
+//           <div className="row">
+//           <Draggable>
+//             <ul className="notes">
+//               <li>
+//                 <div className="rotate-1 lazur-bg">
+//                   {(this.state.editing) ? this.renderForm() : this.renderDisplay()}
+//                 </div>
+//               </li>
+//             </ul>
+//             </Draggable>
+//           </div>
+//         </div>
+//       )
+//     }
+//   }

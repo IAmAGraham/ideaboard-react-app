@@ -1,0 +1,114 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+
+    <link rel="stylesheet" src="ideaboard-react/src/sidebar.css" />
+
+    <script type="text/javascript">
+              $(document).ready(function () {
+            var trigger = $('.hamburger'),
+                overlay = $('.overlay'),
+               isClosed = false;
+
+              trigger.click(function () {
+                hamburger_cross();
+              });
+
+              function hamburger_cross() {
+
+                if (isClosed == true) {
+                  overlay.hide();
+                  trigger.removeClass('is-open');
+                  trigger.addClass('is-closed');
+                  isClosed = false;
+                } else {
+                  overlay.show();
+                  trigger.removeClass('is-closed');
+                  trigger.addClass('is-open');
+                  isClosed = true;
+                }
+            }
+
+            $('[data-toggle="offcanvas"]').click(function () {
+                  $('#wrapper').toggleClass('toggled');
+            });
+          });
+    </script>
+
+    <script
+    src="https://code.jquery.com/jquery-3.2.1.min.js"
+    integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+    crossorigin="anonymous"></script>
+
+    <link rel="stylesheet" href="/index.css">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Cinzel:400,700|Lobster|Lora" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Artifika|Bubbler+One|Cinzel|Droid+Sans|EB+Garamond|Josefin+Sans|Lobster|Lora|Muli|Old+Standard+TT|Open+Sans+Condensed:300|Patrick+Hand+SC|Pragati+Narrow|Rajdhani|Rokkitt|Slabo+27px|Sorts+Mill+Goudy|Source+Sans+Pro|Teko" rel="stylesheet">
+
+    <style>
+      div.hidden {
+        display: none;
+      }
+      div.vis {
+        display: block;
+      }
+      .space {
+        margin-top: 5em;
+      }
+    </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <title>IdeaBoard</title>
+
+<style>
+
+
+.vis{
+    text-align: center;
+}
+
+img{
+  display: block;
+  margin: auto;
+}
+
+.drinktitle{
+  text-align: center;
+}
+
+.space {
+  margin-top: 5em;
+}
+
+.sp {
+  margin-top: 20px;
+}
+
+.cc {
+  height: 210px;
+}
+.bc {
+  background-color: #EEE;
+  opacity: .8;
+  height: 230px;
+}
+</style>
+
+<script>
+$(document).ready(function(){
+    $(".btn-warning").click(function(){
+        $(".collapse").collapse('hide');
+    });
+});
+</script>
+
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="text/javascript" src="/bundle.js"></script>
+  </body>
+</html>

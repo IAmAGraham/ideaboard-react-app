@@ -1,67 +1,44 @@
+.sticky {
+    /* General */
+    margin: 100px auto;
+    padding: 8px 24px;
+    width: 200px;
+    height: 200px;
+    /* Font */
+    font-family: 'Permanent Marker';
+    font-size: 1em;
+    /* Border */
+    border:1px #E8Ds47 solid;
+    /* Shadow */
+    -moz-box-shadow:0px 0px 6px 1px #333333;
+    -webkit-box-shadow:0px 0px 6px 1px #333333;
+    box-shadow:0px 0px 6px 1px #333333;
+    /* Background */
+    background: #fefdca; /* Old browsers */
+    background: -moz-linear-gradient(top, #fefdca 0%, #f7f381 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#fefdca), color-stop(100%,#f7f381)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #fefdca 0%,#f7f381 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #fefdca 0%,#f7f381 100%); /* Opera11.10+ */
+    background: -ms-linear-gradient(top, #fefdca 0%,#f7f381 100%); /* IE10+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fefdca', endColorstr='#f7f381',GradientType=0 ); /* IE6-9 */
+    background: linear-gradient(top, #fefdca 0%,#f7f381 100%); /* W3C; A catch-all for everything else */
+    /* Rotate div */
+    -ms-transform: rotate(-8deg); /* IE 9 */
+    -webkit-transform: rotate(-8deg); /* Chrome, Safari, Opera */
+    transform: rotate(-8deg);
+}
+.sticky h1 {
+    font-size: 1em;
+    text-align: center;
+    padding-bottom: 20px;
+    }
 
-body{margin-top:20px;}
-
-ul.notes li {
-  margin: 10px 40px 50px 0px;
-  float: left;
+.sticky p {
+    text-align: center;
+    padding-bottom: 20px;
 }
 
-ul.notes li, ul.tag-list li {
-  list-style: none;
-}
-
-ul.notes li div small {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  font-size: 10px;
-}
-
-div.rotate-1 {
-  -webkit-transform: rotate(-6deg);
-  -o-transform: rotate(-6deg);
-  -moz-transform: rotate(-6deg);
-}
-
-div.rotate-2 {
-  -o-transform: rotate(4deg);
-  -webkit-transform: rotate(4deg);
-  -moz-transform: rotate(4deg);
-  position: relative;
-  top: 5px;
-}
-
-.lazur-bg {
-  background-color: #23c6c8;
-  color: #ffffff;
-}
-
-.red-bg {
-  background-color: #ed5565;
-  color: #ffffff;
-}
-
-.navy-bg {
-  background-color: #1ab394;
-  color: #ffffff;
-}
-
-.yellow-bg {
-  background-color: #f8ac59;
-  color: #ffffff;
-}
-
-ul.notes li div {
-  text-decoration: none;
-  color: #000;
-  display: block;
-  height: 210px;
-  width: 210px;
-  padding: 1em;
-  -moz-box-shadow: 5px 5px 7px #212121;
-  -webkit-box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
-  box-shadow: 5px 5px 7px rgba(33, 33, 33, 0.7);
-  -moz-transition: -moz-transform 0.15s linear;
-  -o-transition: -o-transform 0.15s linear;
-  -webkit-transition: -webkit-transform 0.15s linear;
+.sticky input {
+    text-align: center;
+    padding-bottom: 20px;
 }

@@ -66,21 +66,25 @@ export default class IdeaBoardsPage extends Component {
 
   render(){
     return(
-      <div className='row'>
-        <div className='col-md-4'>
-          <IdeaBoardsList boards={this.state.boards} />
-        </div>
+      <div >
+        <div >
+          <div >
+            <IdeaBoardsList boards={this.state.boards} />
+          </div>
+       <div >
         <div className='col-md-8'>
-        <Switch>
-          <Route path='/boards/new' render={ () => <IdeaBoardForm onSubmit={this.createBoard}/>} />
-          <Route path='/boards/:id' render={ (routerProps) => {
-            const id= routerProps.match.params.id
-            const board = this.state.boards.find( b => b.id === parseInt(id) )
-            return <IdeaBoardDetail board={board} />
-          }} />
-          </Switch>
+          <Switch>
+            <Route path='/boards/new' render={ () => <IdeaBoardForm onSubmit={this.createBoard}/>} />
+            <Route path='/boards/:id' render={ (routerProps) => {
+              const id= routerProps.match.params.id
+              const board = this.state.boards.find( b => b.id === parseInt(id) )
+              return <IdeaBoardDetail board={board} />
+            }} />
+            </Switch>
+          </div>
         </div>
       </div>
+    </div>
     )
   }
 }

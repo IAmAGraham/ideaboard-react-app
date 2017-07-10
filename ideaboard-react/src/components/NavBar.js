@@ -11,6 +11,7 @@ export default function NavBar(props){
         <ul className="nav navbar-nav">
           <li><Link to='/boards'>All Boards</Link></li>
           <li><Link to='/about'>About</Link></li>
+          <li><Link to='/login'>Login</Link></li>
         </ul>
       </div>
     </nav>

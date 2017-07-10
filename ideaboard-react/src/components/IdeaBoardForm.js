@@ -20,7 +20,8 @@ export default class IdeaBoardForm extends Component {
 
   handleSubmit(event){
     event.preventDefault()
-    const titleAndDesrip = `${this.state.title} - ${this.state.description}`
+    const titleAndDesrip = `${this.state.title}`
+    debugger
     this.props.onSubmit(titleAndDesrip)
     this.setState({
       title: '',
