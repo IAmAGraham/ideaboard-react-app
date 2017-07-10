@@ -51,17 +51,6 @@ export default class IdeaBoardsPage extends Component {
   //     })
   //   })
   // }
-  //
-  // deleteSticky(id){
-  //   BoardsAdapter.destroy(id)
-  //   .then( () => {
-  //     this.setState( previousState => {
-  //       return {
-  //         baords: previousState.board.filter( board => board.id !== id)
-  //       }
-  //     })
-  //   })
-  // }
 
 
   render(){

@@ -9,7 +9,7 @@ export default class StickyList extends Component{
   constructor(props, context){
     super(props, context)
     this.state={
-      stickies: [{id:1, content:''}]
+      stickies: [{id:'', content:''}]
     }
     this.createSticky = this.createSticky.bind(this)
     this.deleteSticky = this.deleteSticky.bind(this)
@@ -47,6 +47,7 @@ export default class StickyList extends Component{
   }
 
   deleteSticky(id){
+    // debugger
     fetch(`http://localhost:3000/api/v1/stickies/${id}`, {
       method: 'DELETE',
       headers: {
@@ -60,7 +61,7 @@ export default class StickyList extends Component{
     // debugger
     return(
       <div>
-      <StickyForm sticky={this.stickies} onDelete={this.deleteSticky} onSubmit={this.createSticky}/>
+      <StickyForm sticky={this.stickies} onRemove={this.props.onRemove} onDelete={this.props.deleteSticky} onSubmit={this.createSticky}/>
 
       </div>
     )

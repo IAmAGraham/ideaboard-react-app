@@ -6,6 +6,10 @@ export class BoardsAdapter {
     .then( response => response.json() )
   }
 
+  static showBoards(id){
+    return fetch(`${this.baseUrl()}/boards/${id}`)
+    .then ( response => response.json() )
+  }
 
   static create(board){
     return fetch(`${this.baseUrl()}/boards`,
@@ -53,6 +57,11 @@ export class StickiesAdapter {
   static allStickies(){
     return fetch(`${this.baseUrl()}/stickies`)
     .then( response => response.json() )
+  }
+
+  static show(id){
+    return fetch(`${this.baseUrl()}/stickies/${id}`)
+    .then ( response => response.json() )
   }
 
   static destroyStickies(id){

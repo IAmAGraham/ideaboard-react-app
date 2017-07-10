@@ -10,7 +10,7 @@ export default class IdeaBoardDetail extends Component {
     super();
     this.state = {
       add: true,
-      stickies: [{id: 1, content:'', board_id: "", x:"", y:""}]
+      stickies: [{id: '', content:'', board_id: "", x:"", y:""}]
     }
     // this.createSticky = this.createSticky.bind(this)
     // this.deleteSticky = this.deleteSticky.bind(this)

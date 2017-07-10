@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
-
+import StickyDetail from './StickyDetail';
 
 import '../postitnote.css'
 
@@ -17,14 +17,16 @@ export default class StickyForm extends Component{
       // this.renderTextInput = this.renderTextInput.bind(this);
       this.renderForm = this.renderForm.bind(this);
       // this.renderStickyInput = this.renderStickyInput.bind(this);
-      this.renderDisplay = this.renderDisplay.bind(this);
+      // this.renderDisplay = this.renderDisplay.bind(this);
       this.removeSticky = this.removeSticky.bind(this);
       this.editSticky = this.editSticky.bind(this);
+      this.deleteSticky = this.deleteSticky.bind(this)
       // this.save = this.save.bind(this);
       this.state = {
 
         editing: false,
-        activeSticky:{id:1, content:''}
+        activeSticky:{id:'', content:''},
+        stickies: []
       }
     }
 
@@ -116,28 +118,29 @@ export default class StickyForm extends Component{
     //   })
     // }
     //
-    handleSubmit(event){
-      event.preventDefault();
-      const content = `${this.state.activeSticky.content}`
-      this.props.onSubmit(content)
-      this.setState({
-        content: '',
-        editing: false
-      })
-    }
-
-
-    // removeSticky(event){
+    // handleSubmit(event){
     //   event.preventDefault();
-    //   const id =`${this.state.activeSticky.id}`
-    //   this.props.onDelete(id)
+    //   const content = `${this.state.activeSticky.content}`
+    //   this.props.onSubmit(content)
     //   this.setState({
-    //     id: ''
+    //     content: '',
+    //     editing: false
     //   })
     // }
 
 
+    deleteSticky(event){
+      event.preventDefault();
+      const id =`${this.state.activeSticky.id}`
+      this.props.onDelete(id)
+      this.setState({
+        id: ''
+      })
+    }
+
+
     removeSticky = ()=>{
+      debugger
         this.props.onDelete(this.state.activeSticky.id)
       }
 
@@ -146,25 +149,30 @@ export default class StickyForm extends Component{
     }
 
     renderForm(){
-      debugger
+      // debugger
       return (
       <div >
         <form onSubmit={this.handleSubmit}>
-        <input key={this.state.content.id + ` content`} type='text' placeholder='Add Sticky Content Here' name='content' value={this.state.content} onChange={this.handleStickyChange} />
+        <input type='text' placeholder='Add Sticky Content Here' name='content' value={this.state.content} onChange={this.handleStickyChange} />
         <input type='submit' value={this.props.submitText} />
         </form>
       </div>
     )}
 
+    deleteSticky(id){
+      // debugger
+      fetch(`http://localhost:3000/api/v1/stickies/${id}`, {
+        method: 'DELETE',
+        headers: {
+          'content-type': 'application/json',
+          'accept': 'application/json'
+        },
+      })
+    }
+
 
     renderDisplay(){
-      return(
-      <div >
-        <button onClick={this.removeSticky} className="btn btn-danger">X</button>
-        <button onClick={this.editSticky}>Edit</button>
-        <p>{this.state.activeSticky.content}</p>
-      </div>
-    )}
+      return( <StickyDetail stickies={this.stickies} deleteSticky={this.deleteSticky} /> )}
 
     render(){
       return(
@@ -174,7 +182,7 @@ export default class StickyForm extends Component{
           <div className="sticky">
 
                 <div className="rotate-1 lazur-bg">
-                  {(this.state.editing) ? this.renderForm() : this.renderDisplay()}
+                  {(this.state.editing) ? this.renderForm() :this.renderDisplay() }
                 </div>
 
           </div>
