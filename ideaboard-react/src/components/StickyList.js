@@ -1,12 +1,14 @@
  import React, {Component} from 'react';
-import {Switch} from 'react-router-dom';
+import {Switch, withRouter} from 'react-router-dom';
 import StickyForm from './StickyForm';
 // import NewStickyForm from './newstickyform'
 // import StickyDetail from './StickyDetail'
 import {StickiesAdapter} from '../adapters';
+import Draggable from 'react-draggable';
+import '../postitnote.css';
 
 
-export default class StickyList extends Component{
+class StickyList extends Component{
 
   constructor(props){
     super(props)
@@ -19,6 +21,8 @@ export default class StickyList extends Component{
     this.add = this.add.bind(this);
     // this.createSticky = this.createSticky.bind(this)
     // this.add = this.add.bind(this)
+    this.deleteSticky = this.deleteSticky.bind(this)
+    this.renderAddButton = this.renderAddButton.bind(this)
   }
 
   // renderCreateSticky = (props) => {
@@ -35,29 +39,30 @@ export default class StickyList extends Component{
 
 
   deleteSticky(id){
+      console.log(`Called destory`)
+      console.log(`Adapter is:`)
+      console.log(StickiesAdapter)
+      console.log(this.state.stickies)
+      let currentState = this.state.stickies
+      StickiesAdapter.destroyStickies(id)
+      this.setState( currentState => {
+        debugger
+        return {
+          stickies: currentState.stickies.filter( sticky => sticky.id !== id )
+        }
+      })
 
-      StickiesAdapter.destroy(id)
-      .then( () => {
-          this.setState( previousState => {
-            return {
-              stickies: previousState.stickies.filter( sticky => sticky.id !== id )
-            }
-          })
-        })
-    }
+        }
 
+        // .then( () => {
+        //   debugger
+        //
+        //     this.setState( currentState => {
+        //       return {
+        //         stickies: currentState.filter( sticky => sticky.id !== id )
+        //       }
+        //     })
 
-
-
-
-
-
-  eachSticky = (sticky) =>{
-    // debugger
-    return(
-      <StickyList key={sticky.id} id={sticky.id} onSave={this.updateSticky} onSubmit={this.handleSubmit} onRemove={this.remove}>{sticky.sticky}</StickyList>
-    )
-  }
 
 remove = (id) =>{
   // #removing from database
@@ -81,25 +86,47 @@ add(){
     })
   )}
 
-  render(){
-    // debugger
-    let list=[]
+  renderAddButton(){
+    let list = []
     for(var i =0 ;i<=this.state.maxSticky;i++){
            list.push(<div>{this.state.add>i&&
-           <StickyForm deleteSticky={this.deleteSticky} />}</div>)
+           <StickyForm deleteSticky={this.deleteSticky} stickies={this.state.stickies}/>}</div>)
          }
     return(
-      <div>
+    <div className='col-md-8' onClick={this.add}>
+    <button>+</button>
       {list}
-        <div className='col-md-8' onClick={this.add}>
-          <button>+</button>
+    </div>
+    )
+  }
+
+  render(){
+    // debugger
+
+    let stickies=this.state.stickies.map( sticky => <ul><li>{sticky.content}</li></ul>  )
+
+    return(
+
+
+    <div className="container bootstrap snippet">
+    <div className="row">
+      <Draggable>
+        <div className="sticky">
+          <div className="rotate-1 lazur-bg">
+            {stickies}
+          </div>
         </div>
-      </div>
+      </Draggable>
+    </div>
+    {this.renderAddButton()}
+    </div>
+
+
     )
   }
 }
 
-
+export default withRouter(StickyList)
 
 
 // {this.state.stickies.map(this.eachSticky)}

@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
-// import {StickiesAdapter} from
-
 import '../postitnote.css';
+// import {StickiesAdapter} from
+// import MyDraggableItem from './MyDraggableItem';
+
 
 export default class StickyForm extends Component{
 
@@ -21,7 +22,7 @@ export default class StickyForm extends Component{
       this.state = {
 
         editing: false,
-        activeSticky:{id:null, content:'', x: null, y:null, board_id:null}
+        activeSticky:{id:null, content:'', x: -372, y:32, board_id:null}
 
       }
     }
@@ -47,7 +48,12 @@ export default class StickyForm extends Component{
         })
       })
       .then( response => response.json() )
-      .then(sticky => console.log(sticky))
+      .then( data => {
+        this.setState({
+          activeSticky: Object.assign({}, {content: data.content, id: data.id}, console.log(this.state.activeSticky))
+        })
+      } )
+      .then(sticky => {console.log(sticky);console.log(this)})
     }
 
     destroyStickies(id){
@@ -74,14 +80,8 @@ export default class StickyForm extends Component{
       }
 
       handleDelete(event){
-        const content = `${this.state.activeSticky.content}`
-        this.setState({
-          content: '',
-          editing: false
-        })
-        this.destroyStickies(this.state.activeSticky)
-        }
 
+      }
 
 
     editSticky = (props) =>{

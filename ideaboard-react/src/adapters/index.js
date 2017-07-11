@@ -51,12 +51,13 @@ static destroy(id){
 export class StickiesAdapter {
 
   static allStickies(){
-    return fetch(`${this.baseUrl()}/stickies`)
+    return fetch(`http://localhost:3000/api/v1/stickies`)
     .then( response => response.json() )
   }
 
   static destroyStickies(id){
-    return fetch(`${this.baseUrl()}/stickies/${id}`, {
+    // debugger
+    return fetch(`http://localhost:3000/api/v1/stickies/${id}`, {
       method: 'DELETE',
       headers: {
           'content-type': 'application/json',
@@ -67,7 +68,7 @@ export class StickiesAdapter {
   }
 
   static updateStickies(sticky){
-   return fetch(`${this.baseUrl()}/stickies/${sticky.id}`, {
+   return fetch(`http://localhost:3000/api/v1/stickies/${sticky.id}`, {
     method: 'PATCH',
     headers: {
         'content-type': 'application/json',
@@ -81,7 +82,7 @@ export class StickiesAdapter {
 }
 
 static createSticky(sticky){
-  return fetch(`${this.baseUrl()}/stickies/${sticky.id}`,
+  return fetch(`http://localhost:3000/api/v1/stickies/${sticky.id}`,
   {method: 'POST',
   headers: {
       'content-type': 'application/json',
@@ -99,7 +100,7 @@ static createSticky(sticky){
 
 export class AuthAdapter{
   static login(loginParams){
-    return fetch(`${baseUrl}/auth`, {
+    return fetch(`http://localhost:3000/api/v1/auth`, {
       method: 'POST',
       headers: {
           'content-type': 'application/json',
@@ -111,7 +112,7 @@ export class AuthAdapter{
   }
 
   static currentUser(){
-    return fetch(`${baseUrl}/current_user`, {
+    return fetch(`http://localhost:3000/api/v1/current_user`, {
       headers: {
           'content-type': 'application/json',
           'accept': 'application/json',
