@@ -9,8 +9,8 @@ export default class IdeaBoardDetail extends Component {
   constructor(){
     super();
     this.state = {
-      add: true,
-      stickies: [{id: 1, content:'', board_id: "", x:"", y:""}]
+      // add: true,
+      stickies: []
     }
     // this.createSticky = this.createSticky.bind(this)
     // this.deleteSticky = this.deleteSticky.bind(this)
@@ -66,69 +66,41 @@ export default class IdeaBoardDetail extends Component {
   //   })
   // }
 
-  add = () => {
-    this.setState(previousState=>(
-      {
-        stickies: [...previousState.stickies, { id: this.nextId(), sticky: 'New Sticky'}]
-      }
-    ))
-  }
-
-  nextId(){
-    this.uniqueId = this.uniqueId || 0
-    return this.uniqueId++
-  }
-
-  remove = (id) =>{
-    // #removing from database
-    this.setState(previousState =>{
-      let stickies = previousState.stickies.filter(sticky => sticky.id !== id)
-      return {stickies: stickies}
-    })
-  }
-
-  eachSticky = (sticky) =>{
-    // debugger
-    return(
-      <StickyList key={sticky.id} id={sticky.id} onSave={this.updateSticky} onSubmit={this.handleSubmit} onRemove={this.remove}>{sticky.sticky}</StickyList>
-    )
-  }
+  //problem
+  // add = () => {
+  //   // debugger
+  //   this.setState(previousState=>(
+  //     {
+  //       stickies: [...previousState.stickies, { id: this.nextId() }]
+  //     }
+  //   ))
+  // }
 
 
 
-  renderEditSticky = (props) => {
-    const id=0
-    const sticky = this.state.stickies.find( s => s.id === parseInt(id) )
-    if (!sticky) {
-      return null
-    }
-    // return (<StickyForm sticky={sticky} createSticky={this.createSticky} onSubmit={this.updateSticky}/>)
-  }
+
 
 
   render(){
     if (!this.props.board){
       return null
     }
+    // debugger
     return (
       <div>
       <div>
       <h2>{this.props.board.title}</h2>
 
-        {this.state.stickies.map(this.eachSticky)}
-        <button onClick={this.add}>+</button>
       </div>
 
       <div className='row'>
 
         <div className='col-md-4'>
-          <StickyList stickies={this.state.stickies} />
+          <StickyList stickies={this.state.stickies} key={this.state.stickies.id} id={this.state.stickies.id} onSave={this.updateSticky} onSubmit={this.handleSubmit} onRemove={this.remove}/>
         </div>
 
 
-        <div className='col-md-8'>
-            { this.renderEditSticky() }
-        </div>
+
       </div>
       </div>
     )

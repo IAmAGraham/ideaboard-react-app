@@ -11,7 +11,7 @@ export default class StickyPage extends Component {
   constructor(props, context) {
     super(props, context);
     this.state = {
-      stickies: [{id:1, content:""}]
+      stickies: [{id:null, content:""}]
     }
     this.createSticky = this.createSticky.bind(this)
   }

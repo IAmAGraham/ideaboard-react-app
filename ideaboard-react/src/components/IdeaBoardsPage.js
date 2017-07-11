@@ -8,8 +8,8 @@ import IdeaBoardDetail from './IdeaBoardDetail';
 
 
 export default class IdeaBoardsPage extends Component {
-  constructor(props, context) {
-    super(props, context);
+  constructor(props) {
+    super(props);
     this.state = {
       boards: []
     }

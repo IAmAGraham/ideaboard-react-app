@@ -75,13 +75,13 @@ export class StickiesAdapter {
         'Authorization': localStorage.getItem('jwt')
       },
     body: JSON.stringify({
-      sticky: {id: sticky.id, content: sticky.content}
+      sticky: {id: sticky.id, content: sticky.content, x: sticky.x, y: sticky.y, board_id: sticky.board_id}
     })
   })
 }
 
-static createStickies(sticky){
-  return fetch(`${this.baseUrl()}/stickies`,
+static createSticky(sticky){
+  return fetch(`${this.baseUrl()}/stickies/${sticky.id}`,
   {method: 'POST',
   headers: {
       'content-type': 'application/json',
@@ -89,7 +89,7 @@ static createStickies(sticky){
       'Authorization': localStorage.getItem('jwt')
     },
   body: JSON.stringify({
-    sticky: {content: sticky.content}
+    sticky: {id: sticky.id, content: sticky.content, x: sticky.x, y: sticky.y, board_id: sticky.board_id}
     })
   })
   .then( response => response.json() )
