@@ -86,7 +86,7 @@ add(){
     let list=[]
     for(var i =0 ;i<=this.state.maxSticky;i++){
            list.push(<div>{this.state.add>i&&
-           <StickyForm deleteSticky={this.deleteSticky} />}</div>)
+           <StickyForm deleteSticky={this.deleteSticky} stickies={this.state.stickies}/>}</div>)
          }
     return(
       <div>

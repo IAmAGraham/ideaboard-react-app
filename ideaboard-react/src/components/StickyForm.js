@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
-import Draggable from 'react-draggable';
-// import {StickiesAdapter} from
+// import Draggable from 'react-draggable';
+
+import MyDraggableItem from './MyDraggableItem';
 
 import '../postitnote.css';
 
@@ -21,7 +22,7 @@ export default class StickyForm extends Component{
       this.state = {
 
         editing: false,
-        activeSticky:{id:null, content:'', x: null, y:null, board_id:null}
+        activeSticky:{id:null, content:'', x: -372, y:32, board_id:null}
 
       }
     }
@@ -74,14 +75,8 @@ export default class StickyForm extends Component{
       }
 
       handleDelete(event){
-        const content = `${this.state.activeSticky.content}`
-        this.setState({
-          content: '',
-          editing: false
-        })
-        this.destroyStickies(this.state.activeSticky)
-        }
 
+      }
 
 
     editSticky = (props) =>{
@@ -103,8 +98,7 @@ export default class StickyForm extends Component{
       // debugger
       return(
       <div >
-
-        <button onClick={() => this.props.deleteSticky(this.state.activeSticky.id) } className="btn btn-danger">X</button>
+        <button className="btn btn-danger">X</button>
         <button onClick={this.editSticky}>Edit</button>
         <p>{this.state.activeSticky.content}</p>
       </div>
@@ -116,13 +110,13 @@ export default class StickyForm extends Component{
 
         <div className="container bootstrap snippet">
           <div className="row">
-            <Draggable>
+            <MyDraggableItem>
               <div className="sticky">
                 <div className="rotate-1 lazur-bg">
                 {(this.state.editing === true) ? this.renderForm() : this.renderDisplay()}
                 </div>
               </div>
-            </Draggable>
+            </MyDraggableItem>
           </div>
 
         </div>

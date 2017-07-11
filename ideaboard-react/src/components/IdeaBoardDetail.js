@@ -96,7 +96,7 @@ export default class IdeaBoardDetail extends Component {
       <div className='row'>
 
         <div className='col-md-4'>
-          <StickyList stickies={this.state.stickies} key={this.state.stickies.id} id={this.state.stickies.id} onSave={this.updateSticky} onSubmit={this.handleSubmit} onRemove={this.remove}/>
+          <StickyList stickies={this.state.stickies} key={this.state.stickies.id} id={this.state.stickies.id} onSave={this.updateSticky} onSubmit={this.handleSubmit} onRemove={this.remove} />
         </div>
 
 
