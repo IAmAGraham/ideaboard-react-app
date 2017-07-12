@@ -25,11 +25,6 @@ class StickyList extends Component{
     this.renderAddButton = this.renderAddButton.bind(this)
   }
 
-  // renderCreateSticky = (props) => {
-  //   const id= 0
-  //   const sticky = this.state.stickies.find( s => s.id === parseInt(id) )
-  //   return (<StickyDetail stickies={this.state.stickies} createSticky={this.createSticky} sticky={sticky} deleteSticky={this.deleteSticky} />)
-  // }
 
   componentDidMount(){
     return fetch('http://localhost:3000/api/v1/stickies')
@@ -43,25 +38,17 @@ class StickyList extends Component{
       console.log(`Adapter is:`)
       console.log(StickiesAdapter)
       console.log(this.state.stickies)
+
       let currentState = this.state.stickies
       StickiesAdapter.destroyStickies(id)
       this.setState( currentState => {
-        debugger
+        // debugger
         return {
           stickies: currentState.stickies.filter( sticky => sticky.id !== id )
         }
       })
 
         }
-
-        // .then( () => {
-        //   debugger
-        //
-        //     this.setState( currentState => {
-        //       return {
-        //         stickies: currentState.filter( sticky => sticky.id !== id )
-        //       }
-        //     })
 
 
 remove = (id) =>{
@@ -87,41 +74,22 @@ add(){
   )}
 
   renderAddButton(){
-    let list = []
-    for(var i =0 ;i<=this.state.maxSticky;i++){
-           list.push(<div>{this.state.add>i&&
-           <StickyForm deleteSticky={this.deleteSticky} stickies={this.state.stickies}/>}</div>)
-         }
-    return(
-    <div className='col-md-8' onClick={this.add}>
-    <button>+</button>
-      {list}
-    </div>
-    )
+
   }
 
   render(){
     // debugger
-
     let stickies=this.state.stickies.map( sticky => <ul><li>{sticky.content}</li></ul>  )
-
-    return(
-
-
-    <div className="container bootstrap snippet">
-    <div className="row">
-      <Draggable>
-        <div className="sticky">
-          <div className="rotate-1 lazur-bg">
-            {stickies}
-          </div>
-        </div>
-      </Draggable>
-    </div>
-    {this.renderAddButton()}
-    </div>
-
-
+      let list = []
+      for(var i =0 ;i<=this.state.maxSticky;i++){
+             list.push(<div>{this.state.add>i&&
+             <StickyForm deleteSticky={this.deleteSticky} stickies={this.state.stickies}/>}</div>)
+           }
+      return(
+      <div className='col-md-8' onClick={this.add}>
+      <button>+</button>
+        {list}
+      </div>
     )
   }
 }

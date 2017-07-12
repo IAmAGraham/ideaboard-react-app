@@ -15,7 +15,6 @@ export default class StickyForm extends Component{
       this.handleSubmit = this.handleSubmit.bind(this);
       this.renderForm = this.renderForm.bind(this);
       this.renderDisplay = this.renderDisplay.bind(this);
-      // this.removeSticky = this.removeSticky.bind(this);
       this.handleDelete = this.handleDelete.bind(this);
       this.editSticky = this.editSticky.bind(this);
 
@@ -111,22 +110,25 @@ export default class StickyForm extends Component{
     )}
 
     render(){
-      return(
+      if (this.state.activeSticky === undefined){
+          return (<div>Nothing</div>)
+      }else {
+        return(
 
-
-        <div className="container bootstrap snippet">
+          <div className="container bootstrap snippet">
           <div className="row">
-            <Draggable>
-              <div className="sticky">
-                <div className="rotate-1 lazur-bg">
-                {(this.state.editing === true) ? this.renderForm() : this.renderDisplay()}
-                </div>
-              </div>
-            </Draggable>
+          <Draggable>
+          <div className="sticky">
+          <div className="rotate-1 lazur-bg">
+          {(this.state.editing === true) ? this.renderForm() : this.renderDisplay()}
+          </div>
+          </div>
+          </Draggable>
           </div>
 
-        </div>
+          </div>
 
-      )
+        )
+      }
     }
   }

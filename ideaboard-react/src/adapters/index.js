@@ -58,13 +58,8 @@ export class StickiesAdapter {
   static destroyStickies(id){
     // debugger
     return fetch(`http://localhost:3000/api/v1/stickies/${id}`, {
-      method: 'DELETE',
-      headers: {
-          'content-type': 'application/json',
-          'accept': 'application/json',
-          'Authorization': localStorage.getItem('jwt')
-        },
-    })
+      method: 'DELETE'
+    }).then(res => res.json() )
   }
 
   static updateStickies(sticky){
