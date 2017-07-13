@@ -5,6 +5,7 @@ import StickyList from './StickyList'
 import {StickiesAdapter, BoardsAdapter} from '../adapters';
 
 
+
 export default class IdeaBoardDetail extends Component {
   constructor(){
     super();
@@ -52,32 +53,8 @@ export default class IdeaBoardDetail extends Component {
         }
       })
     })
-    // persist in  database
-    // this.setState(previousState => {
-    //   let stickies = previousState.stickies.map( sticky =>(
-    //     sticky.id !== id ? sticky : {...sticky, sticky: newText }
-    //   ))
-    //   return {
-    //     stickies: stickies
-    //   }
-    // })
   }
 
-  //problem
-  // add = () => {
-  //   // debugger
-  //   this.setState(previousState=>(
-  //     {
-  //       stickies: [...previousState.stickies, { id: this.nextId() }]
-  //     }
-  //   ))
-  // }
-
-  // currentBoardId(){
-  //   return (
-  //     {this.board.id}
-  //   )
-  // }
 
   createSticky(newSticky){
     StickiesAdapter.addSticky(newSticky)
@@ -96,47 +73,48 @@ export default class IdeaBoardDetail extends Component {
       console.log(StickiesAdapter)
       console.log(this.state.stickies)
 
-      let currentState = this.state.stickies
-      StickiesAdapter.destroyStickies(id)
-      this.setState( currentState => {
-        // debugger
-        return {
-          stickies: currentState.stickies.filter( sticky => sticky.id !== id )
-        }
-      })
 
-        }
+      StickiesAdapter.destroyStickies(id)
+      .then(res =>{
+        debugger
+        const deleteStick = this.state.stickies.filter( sticky => sticky.id !== res.id )
+        this.setState(() => {
+          return {
+            stickies: [ deleteStick ]
+          }
+        })
+      })
+    }
 
   render(){
     if (!this.props.board){
       return null
     }
     return (
-      <div>
-      <div>
-      <h2>{this.props.board.title}</h2>
-
-      </div>
-
-      <div className='row'>
-
-        <div className='col-md-4'>
-        {(!!this.state.stickies.length)
-          ? <StickyList createSticky={this.createSticky} boardId={this.props.board.id} stickies={this.state.stickies} key={this.state.stickies.id} onSubmit={this.updateSticky} onDelete={this.deleteSticky}/>
-          : null }
-
-
+    <div>
+      <div >
+        <div className="flex-container">
+          <div >
+            <h2>{this.props.board.title}</h2>
+          </div>
         </div>
-
-
-
       </div>
+      <div className='row'>
+        <div className='col-md-4'>
+          <StickyList createSticky={this.createSticky}
+                      boardId={this.props.board.id}
+                      stickies={this.state.stickies}
+                      key={this.state.stickies.id}
+                      onSubmit={this.updateSticky}
+                      onDelete={this.deleteSticky}
+                      />
+        </div>
       </div>
+    </div>
     )
   }
 }
 
-
-
-
-// <StickyForm createSticky={this.createSticky} onSubmit={this.createSticky}/>
+// {(!!this.state.stickies.length)
+//   ? <StickyList createSticky={this.createSticky} boardId={this.props.board.id} stickies={this.state.stickies} key={this.state.stickies.id} onSubmit={this.updateSticky} onDelete={this.deleteSticky}/>
+//   : null }

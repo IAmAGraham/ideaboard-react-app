@@ -19,13 +19,8 @@ class StickyList extends Component{
     }
 
     this.add = this.add.bind(this);
-    // this.createSticky = this.createSticky.bind(this)
-    // this.add = this.add.bind(this)
-    // this.deleteSticky = this.deleteSticky.bind(this)
-
     this.createSticky = this.createSticky.bind(this)
     this.stickyBluePrint = this.stickyBluePrint.bind(this)
-    // this.renderAddButton = this.renderAddButton.bind(this)
   }
 
 
@@ -77,42 +72,30 @@ class StickyList extends Component{
 
   createSticky(sticky){
     return(
-        <li>
-          <StickyForm
-            key = {sticky.id}
-            onSubmit={this.props.onSubmit}
-            deleteSticky={this.props.onDelete}
-            sticky={sticky}
-          />
-        </li>
+      <div>
+        <StickyForm
+          key = {sticky.id}
+          onSubmit={this.props.onSubmit}
+          deleteSticky={this.props.onDelete}
+          sticky={sticky}
+          // onDrag={this.componentDidMount}
+          onStop={this.props.onStop}
+        />
+      </div>
     )
   }
 
 
   render(){
-
-
-      // let list = []
-      // for(var i =0 ;i<=this.state.maxSticky;i++){
-      //        list.push(<div>{this.state.add>i&&
-      //        <StickyForm deleteSticky={this.deleteSticky} stickies={this.state.stickies}/>}</div>)
-      //      }
       return(
-
-
       <div className='col-md-8'>
-      <button onClick={this.add} >+</button>
-      <ul>
-        {this.props.stickies.map(this.createSticky)}
-      </ul>
+        <button className="btn btn-success" onClick={this.add}>+</button>
+          <div>
+            {this.props.stickies.map(sticky => this.createSticky(sticky))}
+          </div>
       </div>
     )
   }
 }
 
 export default withRouter(StickyList)
-
-
-// {this.state.stickies.map(this.eachSticky)}
-
-// return (<StickyForm sticky={sticky} createSticky={this.createSticky} onSubmit={this.updateSticky}/>)

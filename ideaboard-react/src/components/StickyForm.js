@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
 import '../postitnote.css';
 import {StickiesAdapter} from '../adapters'
-// import MyDraggableItem from './MyDraggableItem';
 
 
 export default class StickyForm extends Component{
@@ -18,12 +17,13 @@ export default class StickyForm extends Component{
       this.handleDelete = this.handleDelete.bind(this);
       this.changeToEdit = this.changeToEdit.bind(this);
       this.constructSticky = this.constructSticky.bind(this);
-
+      this.constructStickyLocation = this.constructStickyLocation.bind(this);
+      // this.handleDrag = this.handleDrag.bind(this)
+      this.handleStop = this.handleStop.bind(this)
       this.state = {
 
         editing: false,
         content:""
-        // activeSticky:{id:null, content:'', x: -372, y:32, board_id:null}
 
       }
     }
@@ -41,23 +41,38 @@ export default class StickyForm extends Component{
       const id = this.props.sticky.id
       const x = this.props.sticky.x
       const y = this.props.sticky.y
-
-      // const board_id = `${this.props.sticky.board_id}`
       this.props.onSubmit(this.constructSticky(x,y))
       this.setState({
         editing: false,
       })
-      // this.updateStickies(this.state.activeSticky)
-
     }
 
-    handleDrop(event){
+    handleStop(event){
+      console.log("stopped")
+      console.log(this.props.sticky.x, this.props.sticky.y)
+      // event.preventDefault()
+      // const x = this.props.sticky.x
+      // const y = this.props.sticky.y
+      // this.props.onStop(this.constructStickyLocation(x, y))
+      //
+      // this.setState({ x: event.target.value, y:event.target.name })
       // call this with x and y of the sticky from the Draggable drop
       // this.props.onSubmit(this.constructSticky(x,y))
     }
 
-    handleDelete(event){
+    // handleDrag(event){
+    //   event.preventDefault()
+    //   const x = this.props.sticky.x
+    //   const y = this.props.sticky.y
+    //   this.props.onDrag(this.constructStickyLocation(x, y))
+    //
+    //   this.setState({ x: event.target.value, y: event.target.name })
+    // }
 
+    handleDelete(event){
+      event.preventDefault()
+      const sticky= this.props.sticky
+      this.props.deleteSticky(event.target.value)
     }
 
     constructSticky(x,y){
@@ -70,6 +85,18 @@ export default class StickyForm extends Component{
         }
       )
     }
+
+    constructStickyLocation(x,y){
+      return(
+        {
+          id: this.props.sticky.id,
+          content: this.state.content,
+          x: this.props.sticky.x,
+          y: this.props.sticky.y
+        }
+      )
+    }
+
 
     changeToEdit(props){
       this.setState({editing: true})
@@ -90,15 +117,14 @@ export default class StickyForm extends Component{
       // debugger
       return(
       <div >
-
-        <button onClick={() => this.props.deleteStickies(this.props.sticky.id) } className="btn btn-danger">X</button>
+        <button onClick={this.handleDelete} value={this.props.sticky.id} className="btn btn-danger">X</button>
         <button onClick={this.changeToEdit}>Edit</button>
         <p>{this.props.sticky.content}</p>
       </div>
     )}
 
     render(){
-      // debugger
+
       // for Draggable have a callback that gets excecuted once the sticky is dropped
       // that call back will excecute like the edit and handlesubmit, the only difference is that you are getting
       // the x and y from the event
@@ -111,8 +137,7 @@ export default class StickyForm extends Component{
 
           <div className="container bootstrap snippet">
             <div className="row">
-
-              <Draggable onDrop={this.handleDrop}>
+              <Draggable onStop={this.handleStop} onDrag={this.handleDrag} value={this.props.sticky.x} name={this.props.sticky.y}>
                 <div className="sticky">
                   <div className="rotate-1 lazur-bg">
                 {(this.state.editing === true) ? this.renderForm() : this.renderDisplay()}

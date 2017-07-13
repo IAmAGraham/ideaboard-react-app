@@ -68,7 +68,7 @@ export class StickiesAdapter {
   }
 
   static destroyStickies(id){
-    // debugger
+    console.log(`http://localhost:3000/api/v1/stickies/${id}`)
     return fetch(`http://localhost:3000/api/v1/stickies/${id}`, {
       method: 'DELETE'
     }).then(response => response.json() )

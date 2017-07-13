@@ -5,6 +5,7 @@
   "dependencies": {
     "animate.css": "^3.5.2",
     "bootstrap": "^3.3.7",
+    "pui-react-collapse": "^8.3.1",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.0",
     "react-dom": "^15.6.1",
@@ -18,6 +19,7 @@
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-react": "^6.24.1",
     "react-scripts": "1.0.7",
+    "react-svg-loader": "^1.1.1",
     "webpack": "^3.0.0",
     "webpack-dev-server": "^2.5.0"
   },

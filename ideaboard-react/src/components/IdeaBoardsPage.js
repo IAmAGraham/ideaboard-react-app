@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {Route, Switch} from 'react-router-dom';
+import {Route, Switch, Link} from 'react-router-dom';
+import {Collapse} from 'pui-react-collapse';
 // import BoardsAdapter from '../adapters';
 
 import IdeaBoardForm from './IdeaBoardForm';
@@ -69,7 +70,9 @@ export default class IdeaBoardsPage extends Component {
       <div >
         <div >
           <div >
-            <IdeaBoardsList boards={this.state.boards} />
+            <Collapse header="BoardsList" divider >
+              <IdeaBoardsList boards={this.state.boards} />
+            </Collapse>
           </div>
        <div >
         <div className='col-md-8'>

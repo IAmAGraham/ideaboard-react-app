@@ -9,28 +9,18 @@ export default class Landing extends Component {
     render(){
 
       return (
-        
-      <div className="container-fluid">
-        <div className="row text-center ">
-          <div className="col-md-12">
-            <h1><img src='./welcome-to-ideaboard.png' /></h1>
-          <h4 className="animated rotateInDownLeft"><img src="./230329.png" /></h4>
+      <div>
+      <div className="welcome-to-ideaboard">
+        <div className="row">
+          <div>
+            <img className="welcome-to-ideaboard" src='./welcome-to-ideaboard.png' />
+            <img className="welcome-to-ideaboard animated flip" src="./pencil.png" />
           </div>
         </div>
+      </div>
+      <Link to='/boards'><h3 className="welcome-to-ideaboard">Let's Ideate!</h3></Link>
       </div>
 
       )
     }
   }
-
-
-  // <div className="container bootstrap snippet">
-  // <div className="row">
-  // <div className="sticky">
-  // <div className="rotate-1 lazur-bg">
-  // <Route render={ () => <Link to='/boards'>View All Boards</Link>
-  // </div>
-  // </div>
-  // </div>
-  // </div>
-  // </div>
