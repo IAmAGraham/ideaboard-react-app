@@ -4,6 +4,12 @@ import Draggable from 'react-draggable';
 import '../postitnote.css';
 import {StickiesAdapter} from '../adapters'
 
+class MyDraggableItem extends Draggable {
+  constructor(props) {
+    super(props)
+  }
+}
+
 
 export default class StickyForm extends Component{
 
@@ -137,13 +143,13 @@ export default class StickyForm extends Component{
 
           <div className="container bootstrap snippet">
             <div className="row">
-              <Draggable onStop={this.handleStop} onDrag={this.handleDrag} value={this.props.sticky.x} name={this.props.sticky.y}>
+              <MyDraggableItem onStop={this.handleStop} onDrag={this.handleDrag} value={this.props.sticky.x} name={this.props.sticky.y}>
                 <div className="sticky">
                   <div className="rotate-1 lazur-bg">
                 {(this.state.editing === true) ? this.renderForm() : this.renderDisplay()}
                   </div>
                 </div>
-              </Draggable>
+              </MyDraggableItem>
             </div>
           </div>
 

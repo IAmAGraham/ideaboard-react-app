@@ -76,11 +76,12 @@ export default class IdeaBoardDetail extends Component {
 
       StickiesAdapter.destroyStickies(id)
       .then(res =>{
-        debugger
-        const deleteStick = this.state.stickies.filter( sticky => sticky.id !== res.id )
+        console.log('Did you see me???');
+        let boardStickies = res
+        //const deleteStick = this.state.stickies.filter( sticky => sticky.id !== res.id );
         this.setState(() => {
           return {
-            stickies: [ deleteStick ]
+            stickies: boardStickies
           }
         })
       })
