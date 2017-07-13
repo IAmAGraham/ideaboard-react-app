@@ -1,5 +1,5 @@
-const baseUrl = `http://localhost:3000/api/v1`
 
+const baseUrl = `http://localhost:3000/api/v1`
 export class BoardsAdapter {
   static allBoards(){
     return fetch(`${this.baseUrl()}/boards`)
@@ -18,6 +18,18 @@ export class BoardsAdapter {
     body: JSON.stringify({
       board: {title: board.title, description: board.description, stickies: board.stickies}
       })
+    })
+    .then( response => response.json() )
+  }
+
+  static show(board){
+    return fetch(`http://localhost:3000/api/v1/boards/${board.id}`, {
+      method: 'GET',
+      headers: {
+          'content-type': 'application/json',
+          'accept': 'application/json',
+          'Authorization': localStorage.getItem('jwt')
+        },
     })
     .then( response => response.json() )
   }
@@ -59,7 +71,7 @@ export class StickiesAdapter {
     // debugger
     return fetch(`http://localhost:3000/api/v1/stickies/${id}`, {
       method: 'DELETE'
-    }).then(res => res.json() )
+    }).then(response => response.json() )
   }
 
   static updateStickies(sticky){
@@ -71,10 +83,25 @@ export class StickiesAdapter {
         'Authorization': localStorage.getItem('jwt')
       },
     body: JSON.stringify({
-      sticky: {id: sticky.id, content: sticky.content, x: sticky.x, y: sticky.y, board_id: sticky.board_id}
+      sticky: sticky
     })
   })
+  .then(res=>res.json())
 }
+
+static addSticky(sticky){
+  return fetch(`http://localhost:3000/api/v1/stickies/`, {
+   method: 'POST',
+   headers: {
+       'content-type': 'application/json',
+       'accept': 'application/json',
+       'Authorization': localStorage.getItem('jwt')
+     },
+     body: JSON.stringify({
+       sticky: sticky
+     })
+   }).then(res=>res.json())
+ }
 
 static createSticky(sticky){
   return fetch(`http://localhost:3000/api/v1/stickies/${sticky.id}`,

@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {BoardsAdapter} from '../adapters';
+import {BoardsAdapter, StickiesAdapter} from '../adapters';
 import IdeaBoardPage from '../components/IdeaBoardPage';
-import IdeaBoardDetail from '../components/IdeaBoardDetail'
+// import IdeaBoardDetail from '../components/IdeaBoardDetail'
 import StickyList from '../components/StickyList'
+import StickyForm from '../components/StickyForm'
 
-import withAuth from '..hocs/withAuth';
+// import withAuth from '..hocs/withAuth';
 
 class IdeaBoardsPage {
     constructor() {
@@ -41,7 +42,7 @@ class IdeaBoardsPage {
   }
 
   createSticky(sticky){
-    BoardsAdapter.create(sticky)
+    StickiesAdapter.create(sticky)
     .then(sticky => this.setState( (previousState) => {
       return {
         stickies: [...previousState.stickies, sticky]
@@ -63,16 +64,21 @@ class IdeaBoardsPage {
   }
 
   deleteSticky(id){
-    BoardsAdapter.destroy(id)
-    .then( ()=> {
-      this.setState( previousState => {
+      console.log(`Called destory`)
+      console.log(`Adapter is:`)
+      console.log(StickiesAdapter)
+      console.log(this.state.stickies)
+
+      let currentState = this.state.stickies
+      StickiesAdapter.destroyStickies(id)
+      this.setState( currentState => {
+        // debugger
         return {
-          stickies: previousState.stickies.filter(sticky =>sticky.id !== id )
+          stickies: currentState.stickies.filter( sticky => sticky.id !== id )
         }
       })
-      this.props.history.push('/stickies')
-    })
-  }
+
+        }
 
   updateBoard(board){
     BoardsAdapter.update(board).then( () => {
@@ -92,7 +98,7 @@ class IdeaBoardsPage {
   }
 
   updateSticky(sticky){
-    BoardsAdapter.update(sticky).then( () => {
+    StickiesAdapter.update(sticky).then( () => {
       this.setState(function(previousState){
         return {
           stickies: previousState.stickies.map(function(s){
@@ -113,7 +119,7 @@ class IdeaBoardsPage {
                           deleteBoard={this.deleteBoard}
                           updateBoard={this.updateBoard}
                           createBoard={this.createBoard} />
-      <StickyPage stickies={this.state.sticky}
+      <StickyList stickies={this.state.sticky}
                   deleteSticky={this.deleteSticky}
                   updateSticky={this.updateSticky}
                   createSticky={this.createSticky} />

@@ -9,8 +9,8 @@ export default function IdeaBoardsList(props){
       <div className="flex-container" >
         <div className="main">
           <nav >
+          <h2>BoardsList</h2>
             <ul >
-              <li ><a href="#">BoardsList</a></li>
               { props.boards.map( (board) =>
                 <li key={board.id}><Link to={`/boards/${board.id}`}>{ board.title }</Link></li>)}
             </ul>
@@ -18,7 +18,7 @@ export default function IdeaBoardsList(props){
         </div>
       <Switch>
         <Route path='/boards/new' />
-        <Route render={ () => <Link to='/boards/new'>Add a Board</Link> } />
+        <Route render={ () => <Link to='/boards/new'><button>Add a Board</button></Link> } />
       </Switch>
       </div>
     </div>

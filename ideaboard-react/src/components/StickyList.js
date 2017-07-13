@@ -21,8 +21,11 @@ class StickyList extends Component{
     this.add = this.add.bind(this);
     // this.createSticky = this.createSticky.bind(this)
     // this.add = this.add.bind(this)
-    this.deleteSticky = this.deleteSticky.bind(this)
-    this.renderAddButton = this.renderAddButton.bind(this)
+    // this.deleteSticky = this.deleteSticky.bind(this)
+
+    this.createSticky = this.createSticky.bind(this)
+    this.stickyBluePrint = this.stickyBluePrint.bind(this)
+    // this.renderAddButton = this.renderAddButton.bind(this)
   }
 
 
@@ -33,62 +36,75 @@ class StickyList extends Component{
   }
 
 
-  deleteSticky(id){
-      console.log(`Called destory`)
-      console.log(`Adapter is:`)
-      console.log(StickiesAdapter)
-      console.log(this.state.stickies)
 
-      let currentState = this.state.stickies
-      StickiesAdapter.destroyStickies(id)
-      this.setState( currentState => {
-        // debugger
-        return {
-          stickies: currentState.stickies.filter( sticky => sticky.id !== id )
-        }
-      })
-
-        }
-
-
-remove = (id) =>{
-  // #removing from database
-  this.setState(previousState =>{
-    let stickies = previousState.stickies.filter(sticky => sticky.id !== id)
-    return {stickies: stickies}
-  })
-}
-
-renderEditSticky = (props) => {
-  const id=0
-  const sticky = this.state.stickies.find( s => s.id === parseInt(id) )
-  if (!sticky) {
-    return null
-  }
-}
-
-add(){
-    this.setState((previousState)=>({
-        add: ++previousState.add
+  remove = (id) =>{
+    // #removing from database
+    this.setState(previousState =>{
+      let stickies = previousState.stickies.filter(sticky => sticky.id !== id)
+      return {stickies: stickies}
     })
-  )}
-
-  renderAddButton(){
-
   }
+
+  renderEditSticky = (props) => {
+    const id=0
+    const sticky = this.state.stickies.find( s => s.id === parseInt(id) )
+    if (!sticky) {
+      return null
+    }
+  }
+
+  stickyBluePrint(){
+    return (
+      { content: "",
+        x: this.randomBetween(0, window.innerWidth - 150),
+        y: this.randomBetween(0, window.innerHeight - 150),
+        board_id: this.props.boardId
+      }
+    )
+  }
+
+  randomBetween(x,y){
+    return (x+Math.ceil(Math.random()*(y-x)))
+  }
+
+  add(event){
+    const newSticky = this.stickyBluePrint()
+    this.props.createSticky(newSticky)
+    // this.setState((previousState)=>({
+    //     add: ++previousState.add
+    // })
+  }
+
+  createSticky(sticky){
+    return(
+        <li>
+          <StickyForm
+            key = {sticky.id}
+            onSubmit={this.props.onSubmit}
+            deleteSticky={this.props.onDelete}
+            sticky={sticky}
+          />
+        </li>
+    )
+  }
+
 
   render(){
-    // debugger
-    let stickies=this.state.stickies.map( sticky => <ul><li>{sticky.content}</li></ul>  )
-      let list = []
-      for(var i =0 ;i<=this.state.maxSticky;i++){
-             list.push(<div>{this.state.add>i&&
-             <StickyForm deleteSticky={this.deleteSticky} stickies={this.state.stickies}/>}</div>)
-           }
+
+
+      // let list = []
+      // for(var i =0 ;i<=this.state.maxSticky;i++){
+      //        list.push(<div>{this.state.add>i&&
+      //        <StickyForm deleteSticky={this.deleteSticky} stickies={this.state.stickies}/>}</div>)
+      //      }
       return(
-      <div className='col-md-8' onClick={this.add}>
-      <button>+</button>
-        {list}
+
+
+      <div className='col-md-8'>
+      <button onClick={this.add} >+</button>
+      <ul>
+        {this.props.stickies.map(this.createSticky)}
+      </ul>
       </div>
     )
   }

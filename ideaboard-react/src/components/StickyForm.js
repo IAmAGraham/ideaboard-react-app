@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import ReactDOM from 'react-dom';
 import Draggable from 'react-draggable';
 import '../postitnote.css';
-// import {StickiesAdapter} from
+import {StickiesAdapter} from '../adapters'
 // import MyDraggableItem from './MyDraggableItem';
 
 
@@ -16,74 +16,62 @@ export default class StickyForm extends Component{
       this.renderForm = this.renderForm.bind(this);
       this.renderDisplay = this.renderDisplay.bind(this);
       this.handleDelete = this.handleDelete.bind(this);
-      this.editSticky = this.editSticky.bind(this);
+      this.changeToEdit = this.changeToEdit.bind(this);
+      this.constructSticky = this.constructSticky.bind(this);
 
       this.state = {
 
         editing: false,
-        activeSticky:{id:null, content:'', x: -372, y:32, board_id:null}
+        content:""
+        // activeSticky:{id:null, content:'', x: -372, y:32, board_id:null}
 
       }
     }
 
     handleStickyChange(event){
       console.log(event.target.value)
-      this.setState({
-        activeSticky: Object.assign({}, {content: event.target.value, id: null, x: null, y:null, board_id:null}, console.log(this.state.activeSticky))
-      })
+      const value = event.target.value
+      this.setState({content: value})
 
     }
-
-    createStickies(sticky){
-      return fetch(`http://localhost:3000/api/v1/stickies`,
-      {method: 'POST',
-      headers: {
-          'content-type': 'application/json',
-          'accept': 'application/json',
-          // 'Authorization': localStorage.getItem('jwt')
-        },
-      body: JSON.stringify({
-        sticky: {id: sticky.id, content: sticky.content, x: sticky.x, y: sticky.y, board_id: sticky.board_id}
-        })
-      })
-      .then( response => response.json() )
-      .then( data => {
-        this.setState({
-          activeSticky: Object.assign({}, {content: data.content, id: data.id}, console.log(this.state.activeSticky))
-        })
-      } )
-      .then(sticky => {console.log(sticky);console.log(this)})
-    }
-
-    destroyStickies(id){
-      return fetch(`http://localhost:3000/api/v1/stickies/${id}`, {
-        method: 'DELETE',
-        headers: {
-            'content-type': 'application/json',
-            'accept': 'application/json',
-            // 'Authorization': localStorage.getItem('jwt')
-          },
-      })
-    }
-
-
-
 
     handleSubmit(event){
-      const content = `${this.state.activeSticky.content}`
+      event.preventDefault()
+      const content = this.state.content
+      const id = this.props.sticky.id
+      const x = this.props.sticky.x
+      const y = this.props.sticky.y
+
+      // const board_id = `${this.props.sticky.board_id}`
+      this.props.onSubmit(this.constructSticky(x,y))
       this.setState({
-        content: '',
-        editing: false
+        editing: false,
       })
-      this.createStickies(this.state.activeSticky)
-      }
+      // this.updateStickies(this.state.activeSticky)
 
-      handleDelete(event){
+    }
 
-      }
+    handleDrop(event){
+      // call this with x and y of the sticky from the Draggable drop
+      // this.props.onSubmit(this.constructSticky(x,y))
+    }
 
+    handleDelete(event){
 
-    editSticky = (props) =>{
+    }
+
+    constructSticky(x,y){
+      return(
+        {
+          id: this.props.sticky.id,
+          content: this.state.content,
+          x: x,
+          y: y
+        }
+      )
+    }
+
+    changeToEdit(props){
       this.setState({editing: true})
     }
 
@@ -93,7 +81,7 @@ export default class StickyForm extends Component{
       <div >
         <form onSubmit={this.handleSubmit}>
         <input type='text' placeholder='Add Sticky Content Here' name='content' value={this.state.content} onChange={this.handleStickyChange} />
-        <input type='submit' value={this.props.submitText} />
+        <input type='submit' value="save" />
         </form>
       </div>
     )}
@@ -103,32 +91,38 @@ export default class StickyForm extends Component{
       return(
       <div >
 
-        <button onClick={() => this.props.deleteSticky(this.state.activeSticky.id) } className="btn btn-danger">X</button>
-        <button onClick={this.editSticky}>Edit</button>
-        <p>{this.state.activeSticky.content}</p>
+        <button onClick={() => this.props.deleteStickies(this.props.sticky.id) } className="btn btn-danger">X</button>
+        <button onClick={this.changeToEdit}>Edit</button>
+        <p>{this.props.sticky.content}</p>
       </div>
     )}
 
     render(){
-      if (this.state.activeSticky === undefined){
-          return (<div>Nothing</div>)
-      }else {
+      // debugger
+      // for Draggable have a callback that gets excecuted once the sticky is dropped
+      // that call back will excecute like the edit and handlesubmit, the only difference is that you are getting
+      // the x and y from the event
+      // on componentDidMount use the x and y from the props to set the style
+      // set it like this: this.style = {
+      //   right: ... ,
+      //   top: ...
+      // }
         return(
 
           <div className="container bootstrap snippet">
-          <div className="row">
-          <Draggable>
-          <div className="sticky">
-          <div className="rotate-1 lazur-bg">
-          {(this.state.editing === true) ? this.renderForm() : this.renderDisplay()}
-          </div>
-          </div>
-          </Draggable>
-          </div>
+            <div className="row">
 
+              <Draggable onDrop={this.handleDrop}>
+                <div className="sticky">
+                  <div className="rotate-1 lazur-bg">
+                {(this.state.editing === true) ? this.renderForm() : this.renderDisplay()}
+                  </div>
+                </div>
+              </Draggable>
+            </div>
           </div>
 
         )
       }
-    }
+
   }
